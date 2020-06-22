@@ -1,13 +1,11 @@
-import { Server } from 'http';
 import { app, init } from './app';
 import logger from './logger';
 
 export const port = process.env.PORT || '3000';
-async function start(): Promise<Server> {
+async function start(): Promise<void> {
   await init();
-  return app.listen(port, () => {
-    logger.info(`Listening on port ${port} in the ${process.env.NODE_ENV || 'development'} environment`);
-  });
+  await app.start(port);
+  logger.info(`Listening on port ${port} in the ${process.env.NODE_ENV || 'development'} environment`);
 }
 
 // Start the app
